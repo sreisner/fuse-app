@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import Badge from '@material-ui/core/Badge';
 import IconButton from '@material-ui/core/IconButton';
-import { ShoppingCart } from '@material-ui/icons';
+import {
+  ShoppingCart,
+  RemoveCircleOutline,
+  AddCircleOutline,
+} from '@material-ui/icons';
 import Menu from '@material-ui/core/Menu';
 import { ShoppingCartConsumer } from './ShoppingCartContext';
 import {
@@ -46,7 +50,7 @@ const styles = theme => ({
   },
   productInfo: {
     paddingLeft: '12px',
-    alignItems: 'center',
+    alignItems: 'left',
   },
   itemCost: {
     marginRight: '6px',
@@ -65,6 +69,30 @@ const styles = theme => ({
     textAlign: 'center',
     width: '100%',
     height: 50,
+  },
+  iconFix: {
+    badge: {
+      top: 0,
+      right: -6,
+      width: 20,
+      height: 20,
+    },
+  },
+  costQuantity: {
+    width: 240,
+    alignItems: 'center',
+  },
+  icon: {
+    height: 15,
+    width: 15,
+  },
+  button: {
+    height: 15,
+    width: 15,
+    padding: 0,
+    margin: 4,
+    minHeight: 0,
+    boxShadow: 'none',
   },
 });
 class ShoppingCartMenu extends Component {
@@ -89,6 +117,23 @@ class ShoppingCartMenu extends Component {
     this.setState({ open: false });
   };
 
+  addItem = (cart, count) => {
+    this.setState(prevState => {
+      const inventoryCount = this.props.product.count;
+      if (count + 1 <= inventoryCount) {
+        cart.count++;
+      }
+    });
+  };
+
+  removeItem = (cart, count) => {
+    this.setState(prevState => {
+      if (count + 1 > 0) {
+        cart.count = cart.count--;
+      }
+    });
+  };
+
   render() {
     const { anchorEl } = this.state;
     const { classes } = this.props;
@@ -97,7 +142,11 @@ class ShoppingCartMenu extends Component {
       <ShoppingCartConsumer>
         {({ cart, numItemsInCart, subTotal }) => (
           <React.Fragment>
-            <Badge badgeContent={numItemsInCart} color="secondary">
+            <Badge
+              badgeContent={numItemsInCart}
+              className={classes.iconFix}
+              color="secondary"
+            >
               <IconButton onClick={this.handleClick} color="inherit">
                 <ShoppingCart />
               </IconButton>
@@ -138,10 +187,15 @@ class ShoppingCartMenu extends Component {
                                 direction="column"
                               >
                                 <Grid item>
-                                  <Typography>{item.product.title} </Typography>
+                                  <Typography>{item.product.title}</Typography>
                                 </Grid>
                                 <Grid item>
-                                  <Grid container>
+                                  <Grid
+                                    container
+                                    className={classes.costQuantity}
+                                    direction="row"
+                                    justify="space-between"
+                                  >
                                     <Grid item className={classes.itemCost}>
                                       <Typography>
                                         {getFormattedPrice(
@@ -151,7 +205,30 @@ class ShoppingCartMenu extends Component {
                                     </Grid>
                                     <Grid item>
                                       <Typography>
-                                        Quantity: {item.count}
+                                        Quantity:
+                                        <Button
+                                          variant="fab"
+                                          disableFocusRipple="true"
+                                          disableRipple="true"
+                                          className={classes.button}
+                                          onClick={this.addItem}
+                                        >
+                                          <RemoveCircleOutline
+                                            className={classes.icon}
+                                          />
+                                        </Button>
+                                        {item.count}
+                                        <Button
+                                          variant="fab"
+                                          disableFocusRipple="true"
+                                          disableRipple="true"
+                                          className={classes.button}
+                                          onClick={this.removeItem}
+                                        >
+                                          <AddCircleOutline
+                                            className={classes.icon}
+                                          />
+                                        </Button>
                                       </Typography>
                                     </Grid>
                                   </Grid>
