@@ -34,7 +34,7 @@ class ProductList extends Component {
                 className={classes.grid}
               >
                 <Grid item>
-                  <Typography variant="display2" classname={classes.loading}>
+                  <Typography variant="display2" className={classes.loading}>
                     Loading...
                   </Typography>
                 </Grid>

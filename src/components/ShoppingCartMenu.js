@@ -70,13 +70,11 @@ const styles = theme => ({
     width: '100%',
     height: 50,
   },
-  iconFix: {
-    badge: {
-      top: 0,
-      right: -6,
-      width: 20,
-      height: 20,
-    },
+  badge: {
+    top: 0,
+    right: -6,
+    width: 20,
+    height: 20,
   },
   costQuantity: {
     width: 240,
@@ -127,7 +125,7 @@ class ShoppingCartMenu extends Component {
           <React.Fragment>
             <Badge
               badgeContent={totalItemsInCart}
-              className={classes.iconFix}
+              classes={{ badge: classes.badge }}
               color="secondary"
             >
               <IconButton onClick={this.handleClick} color="inherit">
@@ -193,8 +191,8 @@ class ShoppingCartMenu extends Component {
                                         Quantity:
                                         <Button
                                           variant="fab"
-                                          disableFocusRipple="true"
-                                          disableRipple="true"
+                                          disableFocusRipple={true}
+                                          disableRipple={true}
                                           className={classes.button}
                                           onClick={() =>
                                             setProductCount(
@@ -210,8 +208,8 @@ class ShoppingCartMenu extends Component {
                                         {cartItem.numItemsInCart}
                                         <Button
                                           variant="fab"
-                                          disableFocusRipple="true"
-                                          disableRipple="true"
+                                          disableFocusRipple={true}
+                                          disableRipple={true}
                                           className={classes.button}
                                           onClick={() =>
                                             setProductCount(

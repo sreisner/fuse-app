@@ -95,36 +95,34 @@ class Product extends Component {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Grid container>
-                    <Button
-                      variant="fab"
-                      disableFocusRipple="true"
-                      disableRipple="true"
-                      className={classes.button}
-                      onClick={this.decrementNumItemsToAdd}
-                    >
-                      <RemoveCircleOutline className={classes.icon} />
+                  {product.numInStock > 0 && (
+                    <React.Fragment>
+                      <Button
+                        variant="fab"
+                        disableFocusRipple={true}
+                        disableRipple={true}
+                        className={classes.button}
+                        onClick={this.decrementNumItemsToAdd}
+                      >
+                        <RemoveCircleOutline className={classes.icon} />
+                      </Button>
+                      {this.state.numItemsToAdd}
+                      <Button
+                        variant="fab"
+                        disableFocusRipple={true}
+                        disableRipple={true}
+                        className={classes.button}
+                        onClick={this.incrementNumItemsToAdd}
+                      >
+                        <AddCircleOutline className={classes.icon} />
+                      </Button>
+                    </React.Fragment>
+                  )}
+                  {product.numInStock === 0 ? (
+                    <Button disabled>
+                      <Typography color="error">Sold Out!</Typography>
                     </Button>
-                    {this.state.numItemsToAdd}
-                    <Button
-                      variant="fab"
-                      disableFocusRipple="true"
-                      disableRipple="true"
-                      className={classes.button}
-                      onClick={this.incrementNumItemsToAdd}
-                    >
-                      <AddCircleOutline className={classes.icon} />
-                    </Button>
-                    {/* <Select
-                      value={this.state.numItemsToAdd}
-                      onChange={this.onCountChange}
-                    >
-                      {[...Array(10)].map((_, i) => (
-                        <MenuItem key={i} value={i + 1}>
-                          {`${i + 1}`}
-                        </MenuItem>
-                      ))}
-                    </Select> */}
+                  ) : (
                     <ShoppingCartConsumer>
                       {({ addToCart }) => (
                         <Button
@@ -138,7 +136,7 @@ class Product extends Component {
                         </Button>
                       )}
                     </ShoppingCartConsumer>
-                  </Grid>
+                  )}
                 </Grid>
               </Grid>
             </CardActions>
