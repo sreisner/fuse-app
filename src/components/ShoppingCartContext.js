@@ -32,6 +32,22 @@ export class ShoppingCartProvider extends React.Component {
     });
   };
 
+  setProductCount = (product, count) => {
+    this.setState(prevState => {
+      const cart = [...prevState.cart];
+      const item = cart.find(item => item.product._id === product._id);
+      if (count > 0 && count <= product.count) {
+        item.count = count;
+      }
+
+      return {
+        cart,
+        subTotal: this.getCartSubTotal(cart),
+        numItemsInCart: this.getNumItemsInCart(cart),
+      };
+    });
+  };
+
   getNumItemsInCart = cart => {
     return cart.reduce((acc, curr) => {
       return acc + curr.count;
@@ -64,6 +80,7 @@ export class ShoppingCartProvider extends React.Component {
           subTotal: this.state.subTotal,
           numItemsInCart: this.state.numItemsInCart,
           getProductSubTotal: this.getProductSubTotal,
+          setProductCount: this.setProductCount,
         }}
       >
         {children}

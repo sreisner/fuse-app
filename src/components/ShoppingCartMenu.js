@@ -117,30 +117,13 @@ class ShoppingCartMenu extends Component {
     this.setState({ open: false });
   };
 
-  addItem = (cart, count) => {
-    this.setState(prevState => {
-      const inventoryCount = this.props.product.count;
-      if (count + 1 <= inventoryCount) {
-        cart.count++;
-      }
-    });
-  };
-
-  removeItem = (cart, count) => {
-    this.setState(prevState => {
-      if (count + 1 > 0) {
-        cart.count = cart.count--;
-      }
-    });
-  };
-
   render() {
     const { anchorEl } = this.state;
     const { classes } = this.props;
 
     return (
       <ShoppingCartConsumer>
-        {({ cart, numItemsInCart, subTotal }) => (
+        {({ cart, numItemsInCart, subTotal, setProductCount }) => (
           <React.Fragment>
             <Badge
               badgeContent={numItemsInCart}
@@ -211,7 +194,12 @@ class ShoppingCartMenu extends Component {
                                           disableFocusRipple="true"
                                           disableRipple="true"
                                           className={classes.button}
-                                          onClick={this.addItem}
+                                          onClick={() =>
+                                            setProductCount(
+                                              item.product,
+                                              item.count - 1
+                                            )
+                                          }
                                         >
                                           <RemoveCircleOutline
                                             className={classes.icon}
@@ -223,7 +211,12 @@ class ShoppingCartMenu extends Component {
                                           disableFocusRipple="true"
                                           disableRipple="true"
                                           className={classes.button}
-                                          onClick={this.removeItem}
+                                          onClick={() =>
+                                            setProductCount(
+                                              item.product,
+                                              item.count + 1
+                                            )
+                                          }
                                         >
                                           <AddCircleOutline
                                             className={classes.icon}
