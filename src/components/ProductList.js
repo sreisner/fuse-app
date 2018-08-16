@@ -1,7 +1,16 @@
-import { Grid } from '@material-ui/core';
+import { Grid, Typography, withStyles } from '@material-ui/core';
 import React, { Component } from 'react';
 import Fetch from './Fetch';
 import Product from './Product';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+const styles = theme => ({
+  grid: {
+    alignItems: 'center',
+    marginTop: 10,
+    height: 250,
+  },
+});
 
 class ProductList extends Component {
   constructor(props) {
@@ -11,11 +20,33 @@ class ProductList extends Component {
   }
 
   render() {
+    const { classes } = this.props;
+
     return (
       <Fetch route="/products">
         {(loading, error, products) => {
           if (loading) {
-            return <h1>Loading</h1>;
+            return (
+              <Grid
+                container
+                direction="column"
+                justify="space-around"
+                className={classes.grid}
+              >
+                <Grid item>
+                  <Typography variant="display2" classname={classes.loading}>
+                    Loading...
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <CircularProgress
+                    className={classes.progress}
+                    color="secondary"
+                    size={75}
+                  />
+                </Grid>
+              </Grid>
+            );
           } else if (error) {
             return <h1>{error.message}</h1>;
           } else {
@@ -42,4 +73,4 @@ class ProductList extends Component {
   }
 }
 
-export default ProductList;
+export default withStyles(styles)(ProductList);

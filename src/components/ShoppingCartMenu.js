@@ -14,8 +14,7 @@ import {
   Divider,
   withStyles,
   Button,
-  createMuiTheme,
-} from '../../node_modules/@material-ui/core';
+} from '@material-ui/core';
 import { getFormattedPrice } from '../utils';
 import CheckoutDialog from './CheckoutDialog';
 import { Elements } from 'react-stripe-elements';

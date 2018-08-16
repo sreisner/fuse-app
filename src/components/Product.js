@@ -1,4 +1,4 @@
-import { Grid, Select, MenuItem } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
 import { ShoppingCartConsumer } from './ShoppingCartContext';
 import { getFormattedPrice } from '../utils';
+import { RemoveCircleOutline, AddCircleOutline } from '@material-ui/icons';
 
 const styles = theme => ({
   card: {
@@ -23,6 +24,18 @@ const styles = theme => ({
     height: '4rem',
     overflow: 'hidden',
   },
+  icon: {
+    height: 15,
+    width: 15,
+  },
+  button: {
+    height: 15,
+    width: 15,
+    padding: 0,
+    margin: 4,
+    minHeight: 0,
+    boxShadow: 'none',
+  },
 });
 
 class Product extends Component {
@@ -34,10 +47,24 @@ class Product extends Component {
     };
   }
 
-  onCountChange = event => {
-    this.setState({
-      numItemsToAdd: event.target.value,
-    });
+  decrementNumItemsToAdd = () => {
+    if (this.state.numItemsToAdd > 1) {
+      this.setState(prevState => {
+        return {
+          numItemsToAdd: prevState.numItemsToAdd - 1,
+        };
+      });
+    }
+  };
+
+  incrementNumItemsToAdd = () => {
+    if (this.state.numItemsToAdd < this.props.product.numInStock) {
+      this.setState(prevState => {
+        return {
+          numItemsToAdd: prevState.numItemsToAdd + 1,
+        };
+      });
+    }
   };
 
   render() {
@@ -69,7 +96,26 @@ class Product extends Component {
                 </Grid>
                 <Grid item>
                   <Grid container>
-                    <Select
+                    <Button
+                      variant="fab"
+                      disableFocusRipple="true"
+                      disableRipple="true"
+                      className={classes.button}
+                      onClick={this.decrementNumItemsToAdd}
+                    >
+                      <RemoveCircleOutline className={classes.icon} />
+                    </Button>
+                    {this.state.numItemsToAdd}
+                    <Button
+                      variant="fab"
+                      disableFocusRipple="true"
+                      disableRipple="true"
+                      className={classes.button}
+                      onClick={this.incrementNumItemsToAdd}
+                    >
+                      <AddCircleOutline className={classes.icon} />
+                    </Button>
+                    {/* <Select
                       value={this.state.numItemsToAdd}
                       onChange={this.onCountChange}
                     >
@@ -78,7 +124,7 @@ class Product extends Component {
                           {`${i + 1}`}
                         </MenuItem>
                       ))}
-                    </Select>
+                    </Select> */}
                     <ShoppingCartConsumer>
                       {({ addToCart }) => (
                         <Button
