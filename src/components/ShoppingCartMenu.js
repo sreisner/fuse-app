@@ -14,6 +14,7 @@ import {
   Divider,
   withStyles,
   Button,
+  createMuiTheme,
 } from '../../node_modules/@material-ui/core';
 import { getFormattedPrice } from '../utils';
 import CheckoutDialog from './CheckoutDialog';
@@ -123,10 +124,10 @@ class ShoppingCartMenu extends Component {
 
     return (
       <ShoppingCartConsumer>
-        {({ cart, numItemsInCart, subTotal, setProductCount }) => (
+        {({ cart, totalItemsInCart, subTotal, setProductCount }) => (
           <React.Fragment>
             <Badge
-              badgeContent={numItemsInCart}
+              badgeContent={totalItemsInCart}
               className={classes.iconFix}
               color="secondary"
             >
@@ -153,12 +154,12 @@ class ShoppingCartMenu extends Component {
                     </Typography>
                   ) : (
                     <Grid container className={classes.productScroll}>
-                      {cart.map(item => (
-                        <Grid item key={item.product._id}>
+                      {cart.map(cartItem => (
+                        <Grid item key={cartItem.product._id}>
                           <Grid container className={classes.product}>
                             <Grid item className={classes.productRow}>
                               <img
-                                src={item.product.imageUrls[0]}
+                                src={cartItem.product.imageUrls[0]}
                                 className={classes.productImage}
                                 alt=""
                               />
@@ -170,7 +171,9 @@ class ShoppingCartMenu extends Component {
                                 direction="column"
                               >
                                 <Grid item>
-                                  <Typography>{item.product.title}</Typography>
+                                  <Typography>
+                                    {cartItem.product.title}
+                                  </Typography>
                                 </Grid>
                                 <Grid item>
                                   <Grid
@@ -182,7 +185,7 @@ class ShoppingCartMenu extends Component {
                                     <Grid item className={classes.itemCost}>
                                       <Typography>
                                         {getFormattedPrice(
-                                          item.product.retailPrice
+                                          cartItem.product.retailPrice
                                         )}
                                       </Typography>
                                     </Grid>
@@ -196,8 +199,8 @@ class ShoppingCartMenu extends Component {
                                           className={classes.button}
                                           onClick={() =>
                                             setProductCount(
-                                              item.product,
-                                              item.count - 1
+                                              cartItem.product,
+                                              cartItem.numItemsInCart - 1
                                             )
                                           }
                                         >
@@ -205,7 +208,7 @@ class ShoppingCartMenu extends Component {
                                             className={classes.icon}
                                           />
                                         </Button>
-                                        {item.count}
+                                        {cartItem.numItemsInCart}
                                         <Button
                                           variant="fab"
                                           disableFocusRipple="true"
@@ -213,8 +216,8 @@ class ShoppingCartMenu extends Component {
                                           className={classes.button}
                                           onClick={() =>
                                             setProductCount(
-                                              item.product,
-                                              item.count + 1
+                                              cartItem.product,
+                                              cartItem.numItemsInCart + 1
                                             )
                                           }
                                         >

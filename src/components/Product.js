@@ -30,13 +30,13 @@ class Product extends Component {
     super(props);
 
     this.state = {
-      count: 1,
+      numItemsToAdd: 1,
     };
   }
 
   onCountChange = event => {
     this.setState({
-      count: event.target.value,
+      numItemsToAdd: event.target.value,
     });
   };
 
@@ -70,19 +70,21 @@ class Product extends Component {
                 <Grid item>
                   <Grid container>
                     <Select
-                      value={this.state.count}
+                      value={this.state.numItemsToAdd}
                       onChange={this.onCountChange}
                     >
-                      {[...Array(10)].map((_, count) => (
-                        <MenuItem key={count} value={count + 1}>
-                          {`${count + 1}`}
+                      {[...Array(10)].map((_, i) => (
+                        <MenuItem key={i} value={i + 1}>
+                          {`${i + 1}`}
                         </MenuItem>
                       ))}
                     </Select>
                     <ShoppingCartConsumer>
                       {({ addToCart }) => (
                         <Button
-                          onClick={() => addToCart(product, this.state.count)}
+                          onClick={() =>
+                            addToCart(product, this.state.numItemsToAdd)
+                          }
                           size="small"
                           color="primary"
                         >

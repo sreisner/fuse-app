@@ -9,62 +9,70 @@ export class ShoppingCartProvider extends React.Component {
     this.state = {
       cart: [],
       subTotal: 0,
-      numItemsInCart: 0,
+      totalItemsInCart: 0,
     };
   }
 
-  addToCart = (product, count = 1) => {
+  addToCart = (product, numItemsToAdd = 1) => {
     this.setState(prevState => {
       let cart = [...prevState.cart];
-      const item = cart.find(item => item.product._id === product._id);
+      const item = cart.find(cartItem => cartItem.product._id === product._id);
 
       if (item) {
-        item.count += count;
+        item.numItemsInCart += numItemsToAdd;
       } else {
-        cart = [...cart, { product, count }];
+        cart = [...cart, { product, numItemsInCart: numItemsToAdd }];
       }
 
       return {
         cart,
         subTotal: this.getCartSubTotal(cart),
-        numItemsInCart: this.getNumItemsInCart(cart),
+        totalItemsInCart: this.getNumItemsInCart(cart),
       };
     });
   };
 
-  setProductCount = (product, count) => {
+  setProductCount = (product, updatedNumItemsInCart) => {
     this.setState(prevState => {
       const cart = [...prevState.cart];
       const item = cart.find(item => item.product._id === product._id);
-      if (count > 0 && count <= product.count) {
-        item.count = count;
+      if (
+        updatedNumItemsInCart > 0 &&
+        updatedNumItemsInCart <= product.numInStock
+      ) {
+        item.numItemsInCart = updatedNumItemsInCart;
       }
 
       return {
         cart,
         subTotal: this.getCartSubTotal(cart),
-        numItemsInCart: this.getNumItemsInCart(cart),
+        totalItemsInCart: this.getNumItemsInCart(cart),
       };
     });
   };
 
   getNumItemsInCart = cart => {
-    return cart.reduce((acc, curr) => {
-      return acc + curr.count;
+    return cart.reduce((acc, cartItem) => {
+      return acc + cartItem.numItemsInCart;
     }, 0);
   };
 
   getProductSubTotal = cartItem => {
-    return cartItem.product.retailPrice * cartItem.count;
+    return cartItem.product.retailPrice * cartItem.numItemsInCart;
   };
 
   getCartSubTotal = cart => {
-    return cart.reduce((acc, curr) => acc + this.getProductSubTotal(curr), 0);
+    return cart.reduce(
+      (acc, cartItem) => acc + this.getProductSubTotal(cartItem),
+      0
+    );
   };
 
   removeProductFromCart = product => {
     this.setState(prevState => ({
-      cart: prevState.cart.filter(item => item.product._id !== product._id),
+      cart: prevState.cart.filter(
+        cartItem => cartItem.product._id !== product._id
+      ),
     }));
   };
 
@@ -78,7 +86,7 @@ export class ShoppingCartProvider extends React.Component {
           removeProductFromCart: this.removeProductFromCart,
           cart: this.state.cart,
           subTotal: this.state.subTotal,
-          numItemsInCart: this.state.numItemsInCart,
+          totalItemsInCart: this.state.totalItemsInCart,
           getProductSubTotal: this.getProductSubTotal,
           setProductCount: this.setProductCount,
         }}
