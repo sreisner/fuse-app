@@ -6,7 +6,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CheckoutForm from './CheckoutForm';
-import { injectStripe } from 'react-stripe-elements';
 import CheckoutService from '../services/api/checkout/checkout';
 import PropTypes from 'prop-types';
 import { ShoppingCartConsumer } from './ShoppingCartContext';
@@ -29,17 +28,7 @@ class CheckoutDialog extends React.Component {
   submitPayment = (event, userData, productData, amountToCharge) => {
     event.preventDefault();
 
-    this.props.stripe
-      .createToken({ name: this.state.email })
-      .then(response => response.token.id)
-      .then(token =>
-        CheckoutService.makePayment(
-          token,
-          userData,
-          productData,
-          amountToCharge
-        )
-      );
+    CheckoutService.makePayment(userData, productData, amountToCharge);
   };
 
   onCheckoutFormChange = event => {
@@ -59,7 +48,7 @@ class CheckoutDialog extends React.Component {
           const userData = this.state;
 
           const productData = cart.map(item => ({
-            count: item.count,
+            numItemsInCart: item.numItemsInCart,
             _id: item.product._id,
           }));
 
@@ -67,12 +56,8 @@ class CheckoutDialog extends React.Component {
 
           return (
             <div>
-              <Dialog
-                open={this.props.open}
-                onClose={this.props.onClose}
-                aria-labelledby="form-dialog-title"
-              >
-                <DialogTitle id="form-dialog-title">Checkout</DialogTitle>
+              <Dialog open={this.props.open} onClose={this.props.onClose}>
+                <DialogTitle>Checkout</DialogTitle>
                 <DialogContent>
                   <DialogContentText>
                     Enter your payment information:
@@ -116,9 +101,8 @@ class CheckoutDialog extends React.Component {
 }
 
 CheckoutDialog.propTypes = {
-  stripe: PropTypes.object.isRequired,
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-export default (CheckoutDialog = injectStripe(CheckoutDialog));
+export default CheckoutDialog;

@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { CardElement, injectStripe } from 'react-stripe-elements';
-import PropTypes from 'prop-types';
 import { TextField } from '@material-ui/core';
 
 class CheckoutForm extends Component {
@@ -56,15 +54,11 @@ class CheckoutForm extends Component {
           value={zip}
           onChange={onChange}
         />
-
-        <CardElement />
       </React.Fragment>
     );
   }
 }
 
-CheckoutForm.propTypes = {
-  stripe: PropTypes.object.isRequired,
-};
+CheckoutForm.propTypes = {};
 
-export default (CheckoutForm = injectStripe(CheckoutForm));
+export default CheckoutForm;

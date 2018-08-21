@@ -5,7 +5,6 @@ import FireworksToolbar from './components/FireworksToolbar';
 import ProductList from './components/ProductList';
 import withRoot from './withRoot';
 import { ShoppingCartProvider } from './components/ShoppingCartContext';
-import { StripeProvider } from 'react-stripe-elements';
 
 const styles = theme => ({
   appContainer: {
@@ -19,12 +18,10 @@ class App extends Component {
 
     return (
       <div className={classes.appContainer}>
-        <StripeProvider apiKey="pk_test_QpG7zP3geahritzqRv18M6Jy">
-          <ShoppingCartProvider>
-            <FireworksToolbar />
-            <ProductList />
-          </ShoppingCartProvider>
-        </StripeProvider>
+        <ShoppingCartProvider>
+          <FireworksToolbar />
+          <ProductList />
+        </ShoppingCartProvider>
       </div>
     );
   }
