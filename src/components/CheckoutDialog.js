@@ -28,7 +28,9 @@ class CheckoutDialog extends React.Component {
   submitPayment = (event, userData, productData, amountToCharge) => {
     event.preventDefault();
 
-    CheckoutService.makePayment(userData, productData, amountToCharge);
+    CheckoutService.makePayment(userData, productData, amountToCharge).then(
+      response => window.location.assign(response.checkoutUrl)
+    );
   };
 
   onCheckoutFormChange = event => {
