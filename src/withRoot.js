@@ -2,6 +2,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import React from 'react';
 import red from '@material-ui/core/colors/red';
+import 'typeface-dosis';
 
 const theme = createMuiTheme({
   palette: {
@@ -11,6 +12,7 @@ const theme = createMuiTheme({
     borderRadius: 0,
   },
   typography: {
+    fontFamily: 'Dosis',
     htmlFontSize: 10,
   },
 });

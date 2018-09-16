@@ -35,6 +35,7 @@ let ProductCategoryList = props => (
         variant="text"
         color="primary"
         className={props.classes.seeAllButton}
+        onClick={() => alert('implement me')}
       >
         See all {props.products.length} <KeyboardArrowRightIcon />
       </Button>

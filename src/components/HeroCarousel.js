@@ -28,9 +28,10 @@ const styles = theme => ({
     position: 'relative',
     marginBottom: -2, // Hack for scrollbar bug
     height: 360,
+    overflow: 'hidden',
     '& img': {
-      height: '100%',
-      width: '100%',
+      objectFit: 'cover',
+      bottom: 0,
     },
   },
   content: {
@@ -45,7 +46,7 @@ const styles = theme => ({
     ...sharedStyles.contentWidth(theme),
   },
   itemHeading: {
-    marginBottom: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2,
   },
   description: {
     maxWidth: 360,
