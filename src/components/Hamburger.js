@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import grey from '@material-ui/core/colors/grey';
@@ -27,7 +27,6 @@ const styles = theme => {
       position: 'absolute',
       width: '100%',
       height: barHeight,
-      background: grey[100],
       transition: '0.3s all',
       opacity: 1,
     },
@@ -43,14 +42,56 @@ const styles = theme => {
   };
 };
 
-let Hamburger = props => (
-  <div className={props.classes.hamburger} onClick={props.onClick}>
-    <div className={props.classes.container}>
-      <div className={classNames(props.classes.line, props.classes.line1)} />
-      <div className={classNames(props.classes.line, props.classes.line2)} />
-      <div className={classNames(props.classes.line, props.classes.line3)} />
-    </div>
-  </div>
-);
+class Hamburger extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      color: '',
+    };
+  }
+
+  updateColor = () => {
+    if (window.scrollY === 0) {
+      this.setState({
+        color: grey[100],
+      });
+    } else {
+      this.setState({
+        color: grey[900],
+      });
+    }
+  };
+
+  componentDidMount() {
+    this.updateColor();
+
+    window.addEventListener('scroll', this.updateColor);
+  }
+
+  render() {
+    const { classes, onClick } = this.props;
+    const { color } = this.state;
+
+    return (
+      <div className={classes.hamburger} onClick={onClick}>
+        <div className={classes.container}>
+          <div
+            className={classNames(classes.line, classes.line1)}
+            style={{ background: color }}
+          />
+          <div
+            className={classNames(classes.line, classes.line2)}
+            style={{ background: color }}
+          />
+          <div
+            className={classNames(classes.line, classes.line3)}
+            style={{ background: color }}
+          />
+        </div>
+      </div>
+    );
+  }
+}
 
 export default (Hamburger = withStyles(styles)(Hamburger));

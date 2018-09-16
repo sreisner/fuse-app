@@ -2,28 +2,28 @@ const contentWidth = theme => ({
   width: '100%',
   padding: '0 1rem',
   [theme.breakpoints.up(768)]: {
-    maxWidth: '50rem',
+    width: '50rem',
   },
   [theme.breakpoints.up(800)]: {
-    maxWidth: '55rem',
+    width: '55rem',
   },
   [theme.breakpoints.up(900)]: {
-    maxWidth: '60rem',
+    width: '60rem',
   },
   [theme.breakpoints.up(1000)]: {
-    maxWidth: '75rem',
+    width: '75rem',
   },
   [theme.breakpoints.up(1100)]: {
-    maxWidth: '80rem',
+    width: '80rem',
   },
   [theme.breakpoints.up(1150)]: {
-    maxWidth: '85rem',
+    width: '85rem',
   },
   [theme.breakpoints.up(1250)]: {
-    maxWidth: '91rem',
+    width: '91rem',
   },
   [theme.breakpoints.down(767)]: {
-    width: '100%',
+    width: '100vw',
   },
 });
 

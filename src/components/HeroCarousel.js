@@ -81,7 +81,7 @@ class HeroCarousel extends Component {
       <div className={classes.container}>
         <Slider className={classes.slider} {...settings}>
           {content.map(item => (
-            <div className={classes.itemContainer}>
+            <div className={classes.itemContainer} key={item.id}>
               <div className={classes.content}>
                 <Typography
                   variant="display1"
