@@ -7,6 +7,12 @@ const theme = createMuiTheme({
   palette: {
     error: red,
   },
+  shape: {
+    borderRadius: 0,
+  },
+  typography: {
+    htmlFontSize: 10,
+  },
 });
 
 function withRoot(Component) {
