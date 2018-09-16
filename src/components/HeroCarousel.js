@@ -26,7 +26,7 @@ const styles = theme => ({
   },
   itemContainer: {
     position: 'relative',
-    margin: -2, // Hack for scrollbar bug
+    marginBottom: -2, // Hack for scrollbar bug
     height: 360,
     '& img': {
       height: '100%',
