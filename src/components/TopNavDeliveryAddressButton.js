@@ -12,7 +12,6 @@ const styles = theme => ({
   },
   label: {
     marginLeft: 24,
-    color: grey[100],
   },
   lightText: {
     color: grey[100],
