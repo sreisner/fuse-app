@@ -7,7 +7,8 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    minWidth: '15rem',
+    width: '15rem',
+    minWidth: 150,
     marginRight: theme.spacing.unit * 2,
   },
   img: {

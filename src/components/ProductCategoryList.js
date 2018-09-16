@@ -17,11 +17,8 @@ const styles = theme => ({
   productListContainer: {
     display: 'flex',
     flexWrap: 'nowrap',
-    overflowX: 'scroll',
+    overflowX: 'auto',
     paddingBottom: theme.spacing.unit * 4,
-  },
-  productListItem: {
-    minWidth: '30rem',
   },
   seeAllButton: {
     flexShrink: 0,
