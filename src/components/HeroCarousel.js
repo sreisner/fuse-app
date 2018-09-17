@@ -26,13 +26,19 @@ const styles = theme => ({
   },
   itemContainer: {
     position: 'relative',
-    marginBottom: -2, // Hack for scrollbar bug
     height: 360,
+    marginBottom: -2, // Hack for scrollbar bug
     overflow: 'hidden',
     '& img': {
       objectFit: 'cover',
       bottom: 0,
     },
+  },
+  contentContainer: {
+    backgroundPosition: 'right',
+    backgroundRepeat: 'no-repeat',
+    width: '100%',
+    height: '100%',
   },
   content: {
     position: 'absolute',
@@ -83,33 +89,37 @@ class HeroCarousel extends Component {
         <Slider className={classes.slider} {...settings}>
           {content.map(item => (
             <div className={classes.itemContainer} key={item.id}>
-              <div className={classes.content}>
-                <Typography
-                  variant="display1"
-                  color="inherit"
-                  className={classes.itemHeading}
-                >
-                  {item.heading}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  color="inherit"
-                  className={classes.description}
-                >
-                  {item.description}
-                </Typography>
-                {item.buttonText && (
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    className={classes.button}
+              <div
+                className={classes.contentContainer}
+                style={{ backgroundImage: `url(${item.img.src})` }}
+              >
+                <div className={classes.content}>
+                  <Typography
+                    variant="display1"
+                    color="inherit"
+                    className={classes.itemHeading}
                   >
-                    {item.buttonText}
-                  </Button>
-                )}
+                    {item.heading}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="inherit"
+                    className={classes.description}
+                  >
+                    {item.description}
+                  </Typography>
+                  {item.buttonText && (
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      size="large"
+                      className={classes.button}
+                    >
+                      {item.buttonText}
+                    </Button>
+                  )}
+                </div>
               </div>
-              <img src={item.img.src} alt={item.img.alt} />
             </div>
           ))}
         </Slider>
