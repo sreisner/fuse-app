@@ -23,6 +23,9 @@ const styles = theme => ({
         color: grey[200],
       },
     },
+    '& .slick-slide': {
+      marginBottom: -2,
+    },
   },
   itemContainer: {
     position: 'relative',
@@ -37,6 +40,7 @@ const styles = theme => ({
   contentContainer: {
     backgroundPosition: 'right',
     backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
     width: '100%',
     height: '100%',
   },

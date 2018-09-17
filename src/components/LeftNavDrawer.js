@@ -27,6 +27,9 @@ const styles = theme => ({
       paddingLeft: theme.spacing.unit * 2,
     },
   },
+  heading: {
+    overflowY: 'hidden',
+  },
   closeButton: {
     marginRight: theme.spacing.unit,
   },
@@ -42,7 +45,9 @@ let LeftNavDrawer = props => (
   <Drawer open={props.open} onClose={props.onClose}>
     <div className={props.classes.drawer}>
       <div className={props.classes.toolbar}>
-        <Typography variant="display1">Fuse</Typography>
+        <Typography variant="display1" className={props.classes.heading}>
+          Fuse
+        </Typography>
         <IconButton
           onClick={props.onClose}
           className={props.classes.closeButton}
