@@ -12,7 +12,7 @@ const theme = createMuiTheme({
     borderRadius: 0,
   },
   typography: {
-    fontFamily: 'Dosis',
+    fontFamily: 'Dosis, sans-serif',
     htmlFontSize: 10,
   },
 });
