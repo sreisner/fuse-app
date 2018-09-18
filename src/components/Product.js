@@ -11,6 +11,7 @@ import { withStyles } from '@material-ui/core';
 import { ShoppingCartConsumer } from './ShoppingCartContext';
 import { getFormattedPrice } from '../utils';
 import { RemoveCircleOutline, AddCircleOutline } from '@material-ui/icons';
+import ProductDialog from './ProductDialog';
 
 const styles = theme => ({
   card: {
@@ -44,6 +45,7 @@ class Product extends Component {
 
     this.state = {
       numItemsToAdd: 1,
+      open: false,
     };
   }
 
@@ -67,82 +69,99 @@ class Product extends Component {
     }
   };
 
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClickClose = () => {
+    this.setState({ open: false });
+  };
+
   render() {
     const { classes, product } = this.props;
 
     return (
-      <Grid container justify="center" alignItems="stretch">
-        <Grid item>
-          <Card className={classes.card}>
-            <CardMedia
-              className={classes.media}
-              image={product.imageUrls[0]}
-              title={product.title}
-            />
-            <CardContent>
-              <Typography gutterBottom variant="headline" component="h2">
-                {product.title}
-              </Typography>
-              <Typography component="p" className={classes.desc}>
-                {product.description}
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Grid container alignItems="center" justify="space-between">
-                <Grid item>
-                  <Typography variant="caption">
-                    {getFormattedPrice(product.retailPrice)}
+      <React.Fragment>
+        <Grid container justify="center" alignItems="stretch">
+          <Grid item>
+            <Card className={classes.card}>
+              <div onClick={this.handleClickOpen}>
+                <CardMedia
+                  className={classes.media}
+                  image={product.imageUrls[0]}
+                  title={product.title}
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="headline" component="h2">
+                    {product.title}
                   </Typography>
-                </Grid>
-                <Grid item>
-                  {product.numInStock > 0 && (
-                    <React.Fragment>
-                      <Button
-                        variant="fab"
-                        disableFocusRipple={true}
-                        disableRipple={true}
-                        className={classes.button}
-                        onClick={this.decrementNumItemsToAdd}
-                      >
-                        <RemoveCircleOutline className={classes.icon} />
-                      </Button>
-                      {this.state.numItemsToAdd}
-                      <Button
-                        variant="fab"
-                        disableFocusRipple={true}
-                        disableRipple={true}
-                        className={classes.button}
-                        onClick={this.incrementNumItemsToAdd}
-                      >
-                        <AddCircleOutline className={classes.icon} />
-                      </Button>
-                    </React.Fragment>
-                  )}
-                  {product.numInStock === 0 ? (
-                    <Button disabled>
-                      <Typography color="error">Sold Out!</Typography>
-                    </Button>
-                  ) : (
-                    <ShoppingCartConsumer>
-                      {({ addToCart }) => (
+                  <Typography component="p" className={classes.desc}>
+                    {product.description}
+                  </Typography>
+                </CardContent>
+              </div>
+              <CardActions>
+                <Grid container alignItems="center" justify="space-between">
+                  <Grid item>
+                    <Typography variant="caption">
+                      {getFormattedPrice(product.retailPrice)}
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    {product.numInStock > 0 && (
+                      <React.Fragment>
                         <Button
-                          onClick={() =>
-                            addToCart(product, this.state.numItemsToAdd)
-                          }
-                          size="small"
-                          color="primary"
+                          variant="fab"
+                          disableFocusRipple={true}
+                          disableRipple={true}
+                          className={classes.button}
+                          onClick={this.decrementNumItemsToAdd}
                         >
-                          Add to Cart
+                          <RemoveCircleOutline className={classes.icon} />
                         </Button>
-                      )}
-                    </ShoppingCartConsumer>
-                  )}
+                        {this.state.numItemsToAdd}
+                        <Button
+                          variant="fab"
+                          disableFocusRipple={true}
+                          disableRipple={true}
+                          className={classes.button}
+                          onClick={this.incrementNumItemsToAdd}
+                        >
+                          <AddCircleOutline className={classes.icon} />
+                        </Button>
+                      </React.Fragment>
+                    )}
+                    {product.numInStock === 0 ? (
+                      <Button disabled>
+                        <Typography color="error">Sold Out!</Typography>
+                      </Button>
+                    ) : (
+                      <ShoppingCartConsumer>
+                        {({ addToCart }) => (
+                          <Button
+                            onClick={() =>
+                              addToCart(product, this.state.numItemsToAdd)
+                            }
+                            size="small"
+                            color="primary"
+                          >
+                            Add to Cart
+                          </Button>
+                        )}
+                      </ShoppingCartConsumer>
+                    )}
+                  </Grid>
                 </Grid>
-              </Grid>
-            </CardActions>
-          </Card>
+              </CardActions>
+            </Card>
+          </Grid>
         </Grid>
-      </Grid>
+        <ProductDialog
+          open={this.state.open}
+          onClose={this.handleClickClose}
+          product={this.props.product}
+        />
+      </React.Fragment>
     );
   }
 }

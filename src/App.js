@@ -6,6 +6,7 @@ import ProductList from './components/ProductList';
 import withRoot from './withRoot';
 import { ShoppingCartProvider } from './components/ShoppingCartContext';
 import { StripeProvider } from 'react-stripe-elements';
+import FooterPage from './components/FooterPage';
 
 const styles = theme => ({
   appContainer: {
@@ -23,6 +24,7 @@ class App extends Component {
           <ShoppingCartProvider>
             <FireworksToolbar />
             <ProductList />
+            <FooterPage />
           </ShoppingCartProvider>
         </StripeProvider>
       </div>

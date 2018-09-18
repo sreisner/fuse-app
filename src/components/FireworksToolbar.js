@@ -4,8 +4,13 @@ import { ShoppingCartConsumer } from './ShoppingCartContext';
 import ShoppingCartMenu from './ShoppingCartMenu';
 import PropTypes from 'prop-types';
 import { getFormattedPrice } from '../utils';
+import FAQ from './FAQ';
 
-const styles = theme => ({});
+const styles = theme => ({
+  faqButton: {
+    width: 200,
+  },
+});
 
 class FireworksToolbar extends Component {
   constructor(props) {
@@ -15,11 +20,25 @@ class FireworksToolbar extends Component {
   }
 
   render() {
+    const { classes } = this.props;
+
     return (
       <Toolbar>
         <Grid container alignItems="center" justify="space-between">
           <Grid item>
-            <Typography variant="title">Products</Typography>
+            <Grid
+              container
+              alignItems="center"
+              justify="space-between"
+              className={classes.faqButton}
+            >
+              <Grid item>
+                <Typography variant="title">Products</Typography>
+              </Grid>
+              <Grid item>
+                <FAQ />
+              </Grid>
+            </Grid>
           </Grid>
           <Grid item>
             <Grid container spacing={40} alignItems="center">

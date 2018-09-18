@@ -93,6 +93,7 @@ const styles = theme => ({
     boxShadow: 'none',
   },
 });
+
 class ShoppingCartMenu extends Component {
   state = {
     anchorEl: null,

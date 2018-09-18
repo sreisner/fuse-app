@@ -6,7 +6,7 @@ class ImageCarousel extends Component {
     const { product } = this.props;
 
     return (
-      <Carousel>
+      <Carousel width="50px">
         {product.imageUrls.map(imageUrl => (
           <div>
             <img src={imageUrl} alt="" />
