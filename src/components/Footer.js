@@ -4,7 +4,7 @@ import 'font-awesome/css/font-awesome.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 
-class FooterPage extends Component {
+class FooterComponent extends Component {
   render() {
     return (
       <Footer color="indigo" className="font-small pt-0">
@@ -59,4 +59,4 @@ class FooterPage extends Component {
   }
 }
 
-export default FooterPage;
+export default FooterComponent;
