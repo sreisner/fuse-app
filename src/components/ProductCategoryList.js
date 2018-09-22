@@ -43,7 +43,7 @@ let ProductCategoryList = props => (
     <Typography variant="caption">{props.category.description}</Typography>
     <div className={props.classes.productListContainer}>
       {props.products.map(product => (
-        <ProductListItem key={product.id} product={product} />
+        <ProductListItem key={product._id} product={product} />
       ))}
     </div>
   </div>

@@ -10,6 +10,8 @@ const styles = theme => ({
     position: 'fixed',
     width: '100%',
     zIndex: theme.zIndex.appBar,
+    background:
+      'linear-gradient(to bottom, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%)',
   },
   menuRow: {
     position: 'relative',

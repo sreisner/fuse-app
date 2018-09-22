@@ -91,7 +91,7 @@ class MenuView extends Component {
               return (
                 <div
                   className={this.props.classes.productCategoryListContainer}
-                  key={category.id}
+                  key={category._id}
                 >
                   <ProductCategoryList
                     category={category}
