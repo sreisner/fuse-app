@@ -29,7 +29,7 @@ let ProductCategoryList = props => (
   <div className={props.classes.productCategoryList}>
     <div className={props.classes.headerRow}>
       <Typography variant="headline">
-        <strong>{props.category.name}</strong>
+        <strong>{props.category.pluralName}</strong>
       </Typography>
       <Button
         variant="text"

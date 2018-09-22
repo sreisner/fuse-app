@@ -4,6 +4,8 @@ import HeroCarousel from './HeroCarousel';
 import ProductCategoryList from './ProductCategoryList';
 import { withStyles } from '@material-ui/core';
 import Footer from './Footer';
+import CategoriesService from '../services/api/categories/categories';
+import ProductsService from '../services/api/products/products';
 
 const mockHeroCarouselData = [
   {
@@ -31,237 +33,6 @@ const mockHeroCarouselData = [
   },
 ];
 
-const mockCategoryData = [
-  {
-    id: 1,
-    name: '500 Gram Repeaters',
-    description:
-      'Ultimate in pyro-aerial action. One fuse ignites long barrages of spectacular timed bursts with vivid colors and professional show style effects.',
-  },
-  {
-    id: 2,
-    name: '200 Gram Repeaters',
-    description: `Each multi-shot repeater is it's own aerial extravaganza with beautiful color bursts and effects that can be accompanied with whistles, crackles or loud reports.`,
-  },
-  {
-    id: 3,
-    name: 'Tubes',
-    description: `Single Tubes with Tremendous trajectory and burst scope with the most advanced effects in the industry.`,
-  },
-  {
-    id: 4,
-    name: 'Roman Candles',
-    description: `A Roman candle is a traditional type of firework that ejects one or more stars or exploding shells and come in a variety of sizes`,
-  },
-];
-
-const mockProductData = [
-  {
-    id: 1,
-    name: 'July 4th Jubilation, 12 Shot',
-    price: 4999,
-    manufacturer: 'AFW',
-    img: {
-      src:
-        'https://fireworks.com/sites/default/files/styles/r318x253/public/product/2018-06/36876.png?itok=3mKmvvm3',
-      alt: '',
-    },
-    category: 1,
-  },
-  {
-    id: 2,
-    name: 'Grucci Mineshell Mayhem, 16 Shot',
-    price: 4999,
-    manufacturer: 'AFW',
-    img: {
-      src:
-        'https://fireworks.com/sites/default/files/styles/r318x253/public/product/2018-06/36406.png?itok=jzwRxl_f',
-      alt: '',
-    },
-    category: 1,
-  },
-  {
-    id: 3,
-    name: 'Essence of Fire, 21 Shot',
-    price: 6999,
-    manufacturer: 'AFW',
-    img: {
-      src:
-        'https://fireworks.com/sites/default/files/styles/r318x253/public/product/2018-06/36716.png?itok=2kaUMyi_',
-      alt: '',
-    },
-    category: 1,
-  },
-  {
-    id: 4,
-    name: 'Cosmic Carnival, 12 Shot',
-    price: 6999,
-    manufacturer: 'AFW',
-    img: {
-      src:
-        'https://fireworks.com/sites/default/files/styles/r318x253/public/product/2018-06/36936.png?itok=SDhLMHif',
-      alt: '',
-    },
-    category: 1,
-  },
-  {
-    id: 5,
-    name: 'Wicked Willows, 16 Shot',
-    price: 6999,
-    manufacturer: 'AFW',
-    img: {
-      src:
-        'https://fireworks.com/sites/default/files/styles/r318x253/public/product/2018-06/36651.png?itok=C8o-ey22',
-      alt: '',
-    },
-    category: 1,
-  },
-  {
-    id: 6,
-    name: 'Big Red One, 12 Shot',
-    price: 6999,
-    manufacturer: 'AFW',
-    img: {
-      src:
-        'https://fireworks.com/sites/default/files/styles/r318x253/public/product/2018-06/38451.png?itok=LeMnxKnP',
-      alt: '',
-    },
-    category: 1,
-  },
-  {
-    id: 7,
-    name: 'Garden In Spring, 7 Shot',
-    price: 799,
-    manufacturer: 'AFW',
-    img: {
-      src:
-        'https://fireworks.com/sites/default/files/styles/r318x253/public/product/2018-06/36976.png?itok=2CFuOxnc',
-      alt: '',
-    },
-    category: 2,
-  },
-  {
-    id: 8,
-    name: 'Crackling Mine, 7 shot',
-    price: 999,
-    manufacturer: 'AFW',
-    img: {
-      src:
-        'https://fireworks.com/sites/default/files/styles/r318x253/public/product/2018-06/37186.png?itok=pYB0A8gP',
-      alt: '',
-    },
-    category: 2,
-  },
-  {
-    id: 9,
-    name: '96 Shot Pearl',
-    price: 999,
-    manufacturer: 'AFW',
-    img: {
-      src:
-        'https://fireworks.com/sites/default/files/styles/r318x253/public/product/2018-06/36991.png?itok=nN8YWCtX',
-      alt: '',
-    },
-    category: 2,
-  },
-  {
-    id: 10,
-    name: 'Mighty Cobra, 19 Shot',
-    price: 1299,
-    manufacturer: 'AFW',
-    img: {
-      src:
-        'https://fireworks.com/sites/default/files/styles/r318x253/public/product/2018-06/37211.png?itok=dc2p9zoR',
-      alt: '',
-    },
-    category: 2,
-  },
-  {
-    id: 11,
-    name: 'Large Happy Planet, 36 Shot',
-    price: 1299,
-    manufacturer: 'AFW',
-    img: {
-      src:
-        'https://fireworks.com/sites/default/files/styles/r318x253/public/product/2018-06/36986.png?itok=z4Y67-sF',
-      alt: '',
-    },
-    category: 2,
-  },
-  {
-    id: 12,
-    name: 'Sea Sparrow Missiles, 91 Shot',
-    price: 1299,
-    manufacturer: 'AFW',
-    img: {
-      src:
-        'https://fireworks.com/sites/default/files/styles/r318x253/public/product/2018-06/38436.png?itok=bvOL8i3q',
-      alt: '',
-    },
-    category: 2,
-  },
-  {
-    id: 13,
-    name: '#500 Red, White and Blue',
-    price: 2499,
-    manufacturer: 'AFW',
-    img: {
-      src:
-        'https://fireworks.com/sites/default/files/styles/r318x253/public/product/2018-06/37806.png?itok=_B00QCqR',
-      alt: '',
-    },
-    category: 3,
-  },
-  {
-    id: 14,
-    name: '#500 Golden Lotus Shell',
-    price: 2499,
-    manufacturer: 'AFW',
-    img: {
-      src:
-        'https://fireworks.com/sites/default/files/styles/r318x253/public/product/2018-06/37816.png?itok=0YzLDN9U',
-      alt: '',
-    },
-    category: 3,
-  },
-  {
-    id: 15,
-    name: 'Pink Powershell',
-    price: 2499,
-    manufacturer: 'AFW',
-    img: {
-      src:
-        'https://fireworks.com/sites/default/files/styles/r318x253/public/product/2018-06/37846.png?itok=NFbz54Q8',
-      alt: '',
-    },
-    category: 3,
-  },
-  {
-    id: 16,
-    name: '#500 Fluorescent Yellow',
-    price: 2499,
-    manufacturer: 'AFW',
-    img: {
-      src:
-        'https://fireworks.com/sites/default/files/styles/r318x253/public/product/2018-06/37831.png?itok=OeMlvlc_',
-      alt: '',
-    },
-    category: 3,
-  },
-  {
-    id: 17,
-    name: '5 Ball Roman Candle',
-    price: 499,
-    manufacturer: 'AFW',
-    img: {
-      src:
-        'https://fireworks.com/sites/default/files/styles/r318x253/public/product/2018-06/38056.png?itok=8CXWy-qm',
-      alt: '',
-    },
-    category: 4,
-  },
-];
-
 const styles = theme => ({
   bodyContainer: {
     display: 'flex',
@@ -279,10 +50,29 @@ const styles = theme => ({
 class MenuView extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      loading: true,
+      categories: [],
+      products: [],
+    };
+  }
+
+  async componentDidMount() {
+    Promise.all([
+      CategoriesService.getCategories(),
+      ProductsService.getProducts(),
+    ]).then(([categories, products]) =>
+      this.setState({
+        loading: false,
+        categories,
+        products,
+      })
+    );
   }
 
   render() {
+    const { loading, categories, products } = this.state;
+
     return (
       <React.Fragment>
         <TopNav />
@@ -290,20 +80,27 @@ class MenuView extends Component {
           <HeroCarousel content={mockHeroCarouselData} />
         </div>
         <div className={this.props.classes.bodyContainer}>
-          {mockCategoryData.map(category => {
-            const products = mockProductData.filter(
-              product => product.category === category.id
-            );
+          {loading ? (
+            <h1>Loading</h1>
+          ) : (
+            categories.map(category => {
+              const categoryProducts = products.filter(
+                product => product.category === category.id
+              );
 
-            return (
-              <div
-                className={this.props.classes.productCategoryListContainer}
-                key={category.id}
-              >
-                <ProductCategoryList category={category} products={products} />
-              </div>
-            );
-          })}
+              return (
+                <div
+                  className={this.props.classes.productCategoryListContainer}
+                  key={category.id}
+                >
+                  <ProductCategoryList
+                    category={category}
+                    products={categoryProducts}
+                  />
+                </div>
+              );
+            })
+          )}
         </div>
         <Footer />
       </React.Fragment>

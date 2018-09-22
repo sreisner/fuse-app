@@ -13,7 +13,7 @@ const styles = theme => ({
   },
   img: {
     alignSelf: 'center',
-    width: '75%',
+    width: '100%',
     marginTop: theme.spacing.unit * 4,
     marginBottom: theme.spacing.unit * 4,
   },
@@ -23,13 +23,13 @@ let ProductListItem = props => (
   <div className={props.classes.productListItem}>
     <img
       className={props.classes.img}
-      src={props.product.img.src}
-      alt={props.product.img.alt}
+      src={props.product.images[0].src}
+      alt={props.product.images[0].alt}
     />
     <Typography variant="body1">
       <b>{getFormattedPrice(props.product.price)}</b>
     </Typography>
-    <Typography variant="body1">{props.product.name}</Typography>
+    <Typography variant="body1">{props.product.title}</Typography>
     <Typography variant="caption">{props.product.manufacturer}</Typography>
   </div>
 );

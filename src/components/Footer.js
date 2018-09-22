@@ -7,7 +7,7 @@ import 'mdbreact/dist/css/mdb.css';
 class FooterComponent extends Component {
   render() {
     return (
-      <Footer color="indigo" className="font-small pt-0">
+      <Footer color="indigo" className="pt-0">
         <Container>
           <Row className="pt-5 mb-3 text-center d-flex justify-content-center">
             <Col md="2" className="b-3">
