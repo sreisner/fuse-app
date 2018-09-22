@@ -1,3 +1,5 @@
+import grey from '@material-ui/core/colors/grey';
+
 const contentWidth = theme => ({
   width: '100%',
   padding: '0 1rem',
@@ -27,6 +29,23 @@ const contentWidth = theme => ({
   },
 });
 
+const slider = () => ({
+  height: '100%',
+  '& .slick-dots': {
+    bottom: 10,
+    '& button:before': {
+      color: grey[50],
+    },
+    '& .slick-active button:before': {
+      color: grey[200],
+    },
+  },
+  '& .slick-slide': {
+    marginBottom: -2,
+  },
+});
+
 export default {
   contentWidth,
+  slider,
 };

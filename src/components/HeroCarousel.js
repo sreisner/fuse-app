@@ -12,21 +12,7 @@ const styles = theme => ({
     height: 360,
     width: '100%',
   },
-  slider: {
-    height: '100%',
-    '& .slick-dots': {
-      bottom: 10,
-      '& button:before': {
-        color: grey[50],
-      },
-      '& .slick-active button:before': {
-        color: grey[200],
-      },
-    },
-    '& .slick-slide': {
-      marginBottom: -2,
-    },
-  },
+  slider: sharedStyles.slider(),
   itemContainer: {
     position: 'relative',
     height: 360,
@@ -84,7 +70,7 @@ class HeroCarousel extends Component {
       speed: 500,
       slidesToShow: 1,
       slidesToScroll: 1,
-      autoplay: false,
+      autoplay: true,
       autoplaySpeed: 5000,
     };
 

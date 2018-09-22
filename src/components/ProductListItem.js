@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { getFormattedPrice } from '../utils';
 import { Typography, withStyles } from '@material-ui/core';
+import ProductDetail from './ProductDetail';
 
 const styles = theme => ({
   productListItem: {
@@ -10,6 +11,7 @@ const styles = theme => ({
     width: '15rem',
     minWidth: 150,
     marginRight: theme.spacing.unit * 2,
+    cursor: 'pointer',
   },
   img: {
     alignSelf: 'center',
@@ -19,19 +21,56 @@ const styles = theme => ({
   },
 });
 
-let ProductListItem = props => (
-  <div className={props.classes.productListItem}>
-    <img
-      className={props.classes.img}
-      src={props.product.images[0].src}
-      alt={props.product.images[0].alt}
-    />
-    <Typography variant="body1">
-      <b>{getFormattedPrice(props.product.price)}</b>
-    </Typography>
-    <Typography variant="body1">{props.product.title}</Typography>
-    <Typography variant="caption">{props.product.manufacturer}</Typography>
-  </div>
-);
+class ProductListItem extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      detailDialogOpen: false,
+    };
+  }
+
+  openProductDetailDialog = () => {
+    this.setState({
+      detailDialogOpen: true,
+    });
+  };
+
+  closeProductDetailDialog = () => {
+    this.setState({
+      detailDialogOpen: false,
+    });
+  };
+
+  render() {
+    const { classes, product } = this.props;
+    const { detailDialogOpen } = this.state;
+
+    return (
+      <React.Fragment>
+        <div
+          className={classes.productListItem}
+          onClick={this.openProductDetailDialog}
+        >
+          <img
+            className={classes.img}
+            src={product.images[0].src}
+            alt={product.images[0].alt}
+          />
+          <Typography variant="body1">
+            <b>{getFormattedPrice(product.price)}</b>
+          </Typography>
+          <Typography variant="body1">{product.title}</Typography>
+          <Typography variant="caption">{product.manufacturer}</Typography>
+        </div>
+        <ProductDetail
+          product={product}
+          open={detailDialogOpen}
+          onClose={this.closeProductDetailDialog}
+        />
+      </React.Fragment>
+    );
+  }
+}
 
 export default (ProductListItem = withStyles(styles)(ProductListItem));
