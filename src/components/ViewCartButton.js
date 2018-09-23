@@ -4,7 +4,7 @@ import { Button, withStyles, Slide, Badge } from '@material-ui/core';
 
 const styles = theme => ({
   [theme.breakpoints.down('xs')]: {
-    wrapper: {
+    slide: {
       display: 'none',
     },
   },
