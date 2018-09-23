@@ -12,6 +12,8 @@ import {
 import Slider from 'react-slick';
 import sharedStyles from './sharedStyles';
 import CloseIcon from '@material-ui/icons/CloseRounded';
+import NextArrow from './NextArrow';
+import PrevArrow from './PrevArrow';
 
 const styles = theme => ({
   dialogContent: {
@@ -46,9 +48,11 @@ let ProductDetail = props => {
   const sliderSettings = {
     dots: true,
     infinite: true,
-    arrows: false,
+    arrows: true,
     slidesToShow: 1,
     slidesToScroll: 1,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
   };
 
   return (
