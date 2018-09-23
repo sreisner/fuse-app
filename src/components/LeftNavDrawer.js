@@ -33,9 +33,6 @@ const styles = theme => ({
   closeButton: {
     marginRight: theme.spacing.unit,
   },
-  closeIcon: {
-    fontSize: 36,
-  },
   listItemIcon: {
     fontSize: 36,
   },
@@ -52,7 +49,7 @@ let LeftNavDrawer = props => (
           onClick={props.onClose}
           className={props.classes.closeButton}
         >
-          <CloseIcon className={props.classes.closeIcon} />
+          <CloseIcon fontSize="large" />
         </IconButton>
       </div>
       <List>

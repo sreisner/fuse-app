@@ -55,7 +55,7 @@ export class ShoppingCartProvider extends React.Component {
       p => p.product._id === product._id
     );
 
-    return cartProduct.price * cartProduct.numItemsInCart;
+    return cartProduct.product.price * cartProduct.numItemsInCart;
   };
 
   getCartSubtotal = () => {

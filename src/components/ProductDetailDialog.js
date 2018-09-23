@@ -67,7 +67,7 @@ let ProductDetailDialog = props => {
         <div className={classes.sliderContainer}>
           <Slider className={classes.slider} {...sliderSettings}>
             {product.images.map((image, i) => (
-              <div className={classes.imageContainer}>
+              <div className={classes.imageContainer} key={i}>
                 <img src={image.src} alt={image.alt} />
               </div>
             ))}
