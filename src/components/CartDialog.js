@@ -25,16 +25,14 @@ const styles = theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  dialogTitle: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
   productTitle: {
     marginRight: theme.spacing.unit * 2,
   },
-  orderSummary: {
+  margin1: {
     marginBottom: theme.spacing.unit * 2,
+  },
+  margin2: {
+    marginBottom: theme.spacing.unit * 4,
   },
   productSubtotalContainer: {
     display: 'flex',
@@ -68,19 +66,24 @@ let CartDialog = props => {
           onClose={closeCartDialog}
         >
           <DialogContent>
-            <div className={classes.row}>
-              <Typography variant="display1">Your Order</Typography>
+            <div className={classNames(classes.row, classes.margin2)}>
+              <Typography variant="display1">
+                <b>Your Order</b>
+              </Typography>
               <IconButton onClick={closeCartDialog}>
                 <CloseIcon fontSize="large" />
               </IconButton>
             </div>
             {cart.length === 0 && (
               <Typography variant="display1">
-                <EmptyCartIcon /> Your cart is empty
+                <EmptyCartIcon /> <b>Your cart is empty</b>
               </Typography>
             )}
             {cart.map(cartProduct => (
-              <div className={classes.row} key={cartProduct.product._id}>
+              <div
+                className={classNames(classes.row, classes.margin1)}
+                key={cartProduct.product._id}
+              >
                 <Typography
                   variant="subheading"
                   className={classes.productTitle}
@@ -123,8 +126,8 @@ let CartDialog = props => {
               </div>
             ))}
             <Divider className={classes.divider} />
-            <Typography variant="display1" className={classes.orderSummary}>
-              Order Summary
+            <Typography variant="display1" className={classes.margin2}>
+              <b>Order Summary</b>
             </Typography>
             <div className={classes.row}>
               <Typography variant="subheading">Subtotal</Typography>

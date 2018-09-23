@@ -2,7 +2,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import React from 'react';
 import red from '@material-ui/core/colors/red';
-import 'typeface-dosis';
+import 'typeface-exo';
+import 'typeface-lato';
 
 const theme = createMuiTheme({
   palette: {
@@ -12,8 +13,24 @@ const theme = createMuiTheme({
     borderRadius: 0,
   },
   typography: {
-    fontFamily: 'Dosis, sans-serif',
+    fontFamily: 'Exo, sans-serif',
     htmlFontSize: 10,
+    fontSize: 20,
+    body1: {
+      fontFamily: 'Lato',
+    },
+    body2: {
+      fontFamily: 'Lato',
+    },
+    title: {
+      fontFamily: 'Lato',
+    },
+    subheading: {
+      fontFamily: 'Lato',
+    },
+    caption: {
+      fontFamily: 'Lato',
+    },
   },
 });
 
