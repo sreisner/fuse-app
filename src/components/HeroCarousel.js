@@ -101,7 +101,7 @@ class HeroCarousel extends Component {
                   {item.buttonText && (
                     <Button
                       variant="contained"
-                      color="primary"
+                      color="secondary"
                       size="large"
                       className={classes.button}
                     >

@@ -3,12 +3,17 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import withRoot from './withRoot';
 import MenuView from './components/MenuView';
+import { ShoppingCartProvider } from './components/ShoppingCartContext';
 
 const styles = theme => ({});
 
 class App extends Component {
   render() {
-    return <MenuView />;
+    return (
+      <ShoppingCartProvider>
+        <MenuView />
+      </ShoppingCartProvider>
+    );
   }
 }
 

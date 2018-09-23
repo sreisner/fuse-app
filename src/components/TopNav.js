@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Banner from './Banner';
 import LeftNav from './LeftNav';
-import { withStyles } from '@material-ui/core';
+import { withStyles, Button } from '@material-ui/core';
 import TopNavDeliveryAddressButton from './TopNavDeliveryAddressButton';
 import grey from '@material-ui/core/colors/grey';
+import ViewCartButton from './ViewCartButton';
 
 const styles = theme => ({
   topNav: {
@@ -78,6 +79,7 @@ class TopNav extends Component {
             <LeftNav />
           </span>
           <TopNavDeliveryAddressButton onClick={() => alert('implement me')} />
+          <ViewCartButton />
         </div>
       </div>
     );

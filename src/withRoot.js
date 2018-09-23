@@ -14,7 +14,6 @@ const theme = createMuiTheme({
   typography: {
     fontFamily: 'Dosis, sans-serif',
     htmlFontSize: 10,
-    fontSize: 20,
   },
 });
 

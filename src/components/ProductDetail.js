@@ -14,11 +14,9 @@ import sharedStyles from './sharedStyles';
 import CloseIcon from '@material-ui/icons/CloseRounded';
 import NextArrow from './NextArrow';
 import PrevArrow from './PrevArrow';
+import { ShoppingCartConsumer } from './ShoppingCartContext';
 
 const styles = theme => ({
-  dialogContent: {
-    // ...sharedStyles.contentWidth(theme),
-  },
   sliderContainer: {
     display: 'relative',
     height: 360,
@@ -89,9 +87,17 @@ let ProductDetail = props => {
         <Button onClick={props.onClose} color="primary">
           Cancel
         </Button>
-        <Button onClick={props.onClose} color="primary" autoFocus>
-          Add To Cart
-        </Button>
+        <ShoppingCartConsumer>
+          {({ addToCart }) => (
+            <Button
+              onClick={() => addToCart(product)}
+              color="primary"
+              autoFocus
+            >
+              Add To Cart
+            </Button>
+          )}
+        </ShoppingCartConsumer>
       </DialogActions>
     </Dialog>
   );
