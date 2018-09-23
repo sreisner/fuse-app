@@ -8,6 +8,7 @@ import {
   withMobileDialog,
   Typography,
   IconButton,
+  DialogTitle,
 } from '@material-ui/core';
 import Slider from 'react-slick';
 import sharedStyles from './sharedStyles';
@@ -20,12 +21,14 @@ const styles = theme => ({
   sliderContainer: {
     display: 'relative',
     height: 360,
+    '& .slick-list': {
+      marginLeft: -theme.spacing.unit * 3,
+      marginRight: -theme.spacing.unit * 3,
+    },
   },
-  closeButton: {
-    position: 'absolute',
-    right: theme.spacing.unit * 2,
-    top: theme.spacing.unit * 2,
-    zIndex: theme.zIndex.appBar,
+  dialogTitle: {
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
   slider: sharedStyles.slider(),
   imageContainer: {
@@ -40,7 +43,7 @@ const styles = theme => ({
   },
 });
 
-let ProductDetail = props => {
+let ProductDetailDialog = props => {
   const { classes, product, fullScreen, open, onClose } = props;
 
   const sliderSettings = {
@@ -54,34 +57,27 @@ let ProductDetail = props => {
   };
 
   return (
-    <Dialog
-      fullScreen={fullScreen}
-      open={open}
-      onClose={onClose}
-      className={classes.dialog}
-    >
-      <IconButton onClick={props.onClose} className={props.classes.closeButton}>
-        <CloseIcon className={props.classes.closeIcon} />
-      </IconButton>
-      <DialogContent className={classes.dialogContent}>
+    <Dialog fullScreen={fullScreen} open={open} onClose={onClose}>
+      <DialogTitle className={classes.dialogTitle}>
+        <IconButton onClick={props.onClose}>
+          <CloseIcon fontSize="large" />
+        </IconButton>
+      </DialogTitle>
+      <DialogContent>
         <div className={classes.sliderContainer}>
           <Slider className={classes.slider} {...sliderSettings}>
             {product.images.map((image, i) => (
-              <div className={classes.itemContainer} key={i}>
-                <div className={classes.imageContainer}>
-                  <img src={image.src} alt={image.alt} />
-                </div>
+              <div className={classes.imageContainer}>
+                <img src={image.src} alt={image.alt} />
               </div>
             ))}
           </Slider>
         </div>
-        <div className={classes.detailContainer}>
-          <Typography variant="title" style={{ overflow: 'hidden' }}>
-            {product.title}
-          </Typography>
-          <Typography variant="caption">{product.manufacturer}</Typography>
-          <Typography variant="body1">{product.description}</Typography>
-        </div>
+        <Typography variant="title" style={{ overflow: 'hidden' }}>
+          {product.title}
+        </Typography>
+        <Typography variant="caption">{product.manufacturer}</Typography>
+        <Typography variant="body1">{product.description}</Typography>
       </DialogContent>
       <DialogActions>
         <Button onClick={props.onClose} color="primary">
@@ -90,7 +86,10 @@ let ProductDetail = props => {
         <ShoppingCartConsumer>
           {({ addToCart }) => (
             <Button
-              onClick={() => addToCart(product)}
+              onClick={() => {
+                addToCart(product);
+                props.onClose();
+              }}
               color="primary"
               autoFocus
             >
@@ -103,6 +102,6 @@ let ProductDetail = props => {
   );
 };
 
-export default (ProductDetail = withMobileDialog()(
-  withStyles(styles)(ProductDetail)
+export default (ProductDetailDialog = withMobileDialog()(
+  withStyles(styles)(ProductDetailDialog)
 ));

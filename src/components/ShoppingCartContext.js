@@ -98,15 +98,11 @@ export class ShoppingCartProvider extends React.Component {
           getProductSubtotal: this.getProductSubtotal,
           getCartSubtotal: this.getCartSubtotal,
           getNumItemsInCart: this.getNumItemsInCart,
+          cartDialogIsOpen: this.state.cartDialogIsOpen,
           openCartDialog: this.openCartDialog,
           closeCartDialog: this.closeCartDialog,
         }}
       >
-        {/* <ViewCartBottomPaper />
-        <ViewCartDialog
-          open={this.state.cartDialogIsOpen}
-          onClose={this.closeCartDialog}
-        /> */}
         {children}
       </ShoppingCartContext.Provider>
     );

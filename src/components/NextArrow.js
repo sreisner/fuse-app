@@ -8,7 +8,15 @@ const NextArrow = props => {
   return (
     <ArrowForwardIcon
       className={className}
-      style={{ ...style, right: 0, color: grey[900] }}
+      style={{
+        ...style,
+        right: 0,
+        color: grey[900],
+        height: '100%',
+        background:
+          'linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%)',
+        marginRight: -24,
+      }}
       onClick={onClick}
     />
   );

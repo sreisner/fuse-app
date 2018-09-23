@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { getFormattedPrice } from '../utils';
 import { Typography, withStyles } from '@material-ui/core';
-import ProductDetail from './ProductDetail';
+import ProductDetailDialog from './ProductDetailDialog';
 
 const styles = theme => ({
   productListItem: {
@@ -63,7 +63,7 @@ class ProductListItem extends Component {
           <Typography variant="body1">{product.title}</Typography>
           <Typography variant="caption">{product.manufacturer}</Typography>
         </div>
-        <ProductDetail
+        <ProductDetailDialog
           product={product}
           open={detailDialogOpen}
           onClose={this.closeProductDetailDialog}

@@ -12,6 +12,10 @@ const styles = theme => ({
     '&:hover': {
       color: grey[900],
     },
+    height: '100%',
+    background:
+      'linear-gradient(to right, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%)',
+    marginLeft: -24,
   },
 });
 
