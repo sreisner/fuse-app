@@ -8,7 +8,6 @@ import {
   withMobileDialog,
   Typography,
   IconButton,
-  DialogTitle,
   Divider,
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/CloseRounded';
