@@ -84,11 +84,11 @@ class HeroCarousel extends Component {
               >
                 <div className={classes.content}>
                   <Typography
-                    variant="display1"
+                    variant="headline"
                     color="inherit"
                     className={classes.itemHeading}
                   >
-                    {item.heading}
+                    <b>{item.heading}</b>
                   </Typography>
                   <Typography
                     variant="body2"
