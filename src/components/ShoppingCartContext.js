@@ -81,6 +81,15 @@ export class ShoppingCartProvider extends React.Component {
     );
   };
 
+  getProductCount = product => {
+    if (!this.productInCart(product)) {
+      return 0;
+    }
+
+    return this.state.cart.find(p => p.product._id === product._id)
+      .numItemsInCart;
+  };
+
   openCartDialog = () => {
     this.setState({
       cartDialogIsOpen: true,
@@ -91,6 +100,10 @@ export class ShoppingCartProvider extends React.Component {
     this.setState({
       cartDialogIsOpen: false,
     });
+  };
+
+  productInCart = product => {
+    return this.state.cart.some(p => p.product._id === product._id);
   };
 
   render() {
@@ -110,6 +123,8 @@ export class ShoppingCartProvider extends React.Component {
           cartDialogIsOpen: this.state.cartDialogIsOpen,
           openCartDialog: this.openCartDialog,
           closeCartDialog: this.closeCartDialog,
+          productInCart: this.productInCart,
+          getProductCount: this.getProductCount,
         }}
       >
         {children}

@@ -15,12 +15,11 @@ const theme = createMuiTheme({
   typography: {
     fontFamily: 'Exo, sans-serif',
     htmlFontSize: 10,
-    // fontSize: 20,
     body1: {
       fontFamily: 'Lato',
     },
     body2: {
-      fontFamily: 'Lato',
+      fontFamily: 'Exo',
     },
     title: {
       fontFamily: 'Lato',

@@ -19,6 +19,8 @@ const styles = theme => ({
     flexWrap: 'nowrap',
     overflowX: 'auto',
     paddingBottom: theme.spacing.unit * 4,
+    paddingLeft: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
   },
   seeAllButton: {
     flexShrink: 0,
