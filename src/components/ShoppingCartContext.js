@@ -43,11 +43,20 @@ export class ShoppingCartProvider extends React.Component {
   };
 
   removeProductFromCart = product => {
-    this.setState(prevState => {
-      return {
-        cart: prevState.cart.filter(p => p.product._id !== product._id),
-      };
-    });
+    this.setState(
+      prevState => {
+        return {
+          cart: prevState.cart.filter(p => p.product._id !== product._id),
+        };
+      },
+      () => {
+        if (this.state.cart.length === 0) {
+          this.setState({
+            cartDialogIsOpen: false,
+          });
+        }
+      }
+    );
   };
 
   getProductSubtotal = product => {

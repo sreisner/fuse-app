@@ -74,11 +74,6 @@ let CartDialog = props => {
                 <CloseIcon fontSize="large" />
               </IconButton>
             </div>
-            {cart.length === 0 && (
-              <Typography variant="display1">
-                <EmptyCartIcon /> <b>Your cart is empty</b>
-              </Typography>
-            )}
             {cart.map(cartProduct => (
               <div
                 className={classNames(classes.row, classes.margin1)}

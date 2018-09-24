@@ -15,7 +15,7 @@ const theme = createMuiTheme({
   typography: {
     fontFamily: 'Exo, sans-serif',
     htmlFontSize: 10,
-    fontSize: 20,
+    // fontSize: 20,
     body1: {
       fontFamily: 'Lato',
     },
