@@ -16,7 +16,6 @@ const styles = theme => ({
   itemContainer: {
     position: 'relative',
     height: 360,
-    marginBottom: -2, // Hack for scrollbar bug
     overflow: 'hidden',
     '& img': {
       objectFit: 'cover',
