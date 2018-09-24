@@ -5,6 +5,7 @@ import withRoot from './withRoot';
 import MenuView from './components/MenuView';
 import { ShoppingCartProvider } from './components/ShoppingCartContext';
 import CartDialog from './components/CartDialog';
+import ViewCartBottomMenu from './components/ViewCartBottomMenu';
 
 const styles = theme => ({});
 
@@ -13,7 +14,7 @@ class App extends Component {
     return (
       <ShoppingCartProvider>
         <MenuView />
-        {/* <ViewCartBottomPaper /> */}
+        <ViewCartBottomMenu />
         <CartDialog />
       </ShoppingCartProvider>
     );

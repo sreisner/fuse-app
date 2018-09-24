@@ -14,7 +14,6 @@ import CloseIcon from '@material-ui/icons/CloseRounded';
 import DeleteIcon from '@material-ui/icons/DeleteOutlineRounded';
 import AddIcon from '@material-ui/icons/AddCircleOutlineRounded';
 import RemoveIcon from '@material-ui/icons/RemoveCircleOutlineRounded';
-import EmptyCartIcon from '@material-ui/icons/RemoveShoppingCartRounded';
 import { ShoppingCartConsumer } from './ShoppingCartContext';
 import { getFormattedPrice } from '../utils';
 import classNames from 'classnames';
