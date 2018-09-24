@@ -67,7 +67,7 @@ let CartDialog = props => {
         >
           <DialogContent>
             <div className={classNames(classes.row, classes.margin2)}>
-              <Typography variant="display1">
+              <Typography variant="headline">
                 <b>Your Order</b>
               </Typography>
               <IconButton onClick={closeCartDialog}>
@@ -126,7 +126,7 @@ let CartDialog = props => {
               </div>
             ))}
             <Divider className={classes.divider} />
-            <Typography variant="display1" className={classes.margin2}>
+            <Typography variant="headline" className={classes.margin2}>
               <b>Order Summary</b>
             </Typography>
             <div className={classes.row}>
