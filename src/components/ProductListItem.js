@@ -3,18 +3,13 @@ import { getFormattedPrice } from '../utils';
 import {
   Typography,
   withStyles,
-  Grow,
   Fade,
   IconButton,
-  Badge,
-  Chip,
-  Button,
+  withWidth,
 } from '@material-ui/core';
 import ProductDetailDialog from './ProductDetailDialog';
 import AddIcon from '@material-ui/icons/AddCircleOutlineRounded';
 import { ShoppingCartConsumer } from './ShoppingCartContext';
-import QuantityModifier from './QuantityModifier';
-import red from '@material-ui/core/colors/red';
 import grey from '@material-ui/core/colors/grey';
 import classNames from 'classnames';
 
@@ -109,8 +104,10 @@ class ProductListItem extends Component {
   };
 
   render() {
-    const { classes, product } = this.props;
+    const { classes, width, product } = this.props;
     const { detailDialogOpen, hovered } = this.state;
+
+    const onMobile = width === 'xs';
 
     return (
       <React.Fragment>
@@ -131,7 +128,7 @@ class ProductListItem extends Component {
                     <QuantityModifier />
                   </Grow> */}
                   <Fade
-                    in={!hovered && productInCart(product)}
+                    in={(onMobile || !hovered) && productInCart(product)}
                     className={classNames(
                       classes.upperRight,
                       classes.productCount
@@ -142,7 +139,7 @@ class ProductListItem extends Component {
                     </Typography>
                   </Fade>
                   <Fade
-                    in={hovered && !productInCart(product)}
+                    in={(onMobile || hovered) && !productInCart(product)}
                     className={classes.upperRight}
                   >
                     <div onClick={event => this.onAddClick(event, addToCart)}>
@@ -183,4 +180,6 @@ class ProductListItem extends Component {
   }
 }
 
-export default (ProductListItem = withStyles(styles)(ProductListItem));
+export default (ProductListItem = withWidth()(
+  withStyles(styles)(ProductListItem)
+));
