@@ -123,6 +123,7 @@ class ProductListItem extends Component {
                 <React.Fragment>
                   {/* <Grow
                     in={hovered && productInCart(product)}
+                    unmountOnExit={true}
                     className={classes.quantityModifier}
                   >
                     <QuantityModifier />
@@ -140,6 +141,7 @@ class ProductListItem extends Component {
                   </Fade>
                   <Fade
                     in={(onMobile || hovered) && !productInCart(product)}
+                    unmountOnExit={true}
                     className={classes.upperRight}
                   >
                     <div onClick={event => this.onAddClick(event, addToCart)}>
