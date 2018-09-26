@@ -118,6 +118,10 @@ class ProductListItem extends Component {
     event.stopPropagation();
 
     addToCart(this.props.product);
+
+    this.setState({
+      productCountFocused: true,
+    });
   };
 
   onProductCountClicked = event => {
