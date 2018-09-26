@@ -22,7 +22,7 @@ class QuantityModifier extends Component {
   }
 
   render() {
-    const { classes, product } = this.props;
+    const { classes, product, showPrice } = this.props;
 
     return (
       <ShoppingCartConsumer>
@@ -61,12 +61,23 @@ class QuantityModifier extends Component {
                 </IconButton>
               )}
               <div className={classes.productSubtotalContainer}>
-                <Typography variant="title">
-                  {getFormattedPrice(getProductSubtotal(cartProduct.product))}
-                </Typography>
-                <Typography variant="body1">
-                  Qty: {cartProduct.numItemsInCart}
-                </Typography>
+                {showPrice && (
+                  <React.Fragment>
+                    <Typography variant="title">
+                      {getFormattedPrice(
+                        getProductSubtotal(cartProduct.product)
+                      )}
+                    </Typography>
+                    <Typography variant="body1">
+                      Qty: {cartProduct.numItemsInCart}
+                    </Typography>
+                  </React.Fragment>
+                )}
+                {!showPrice && (
+                  <Typography variant="headline">
+                    {cartProduct.numItemsInCart}
+                  </Typography>
+                )}
               </div>
               <IconButton
                 onClick={event => {

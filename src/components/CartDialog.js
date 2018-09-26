@@ -73,7 +73,10 @@ let CartDialog = props => {
                 >
                   {cartProduct.product.title}
                 </Typography>
-                <QuantityModifier product={cartProduct.product} />
+                <QuantityModifier
+                  product={cartProduct.product}
+                  showPrice={true}
+                />
               </div>
             ))}
             <Divider className={classes.divider} />

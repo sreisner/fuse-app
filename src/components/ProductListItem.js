@@ -57,6 +57,7 @@ const styles = theme => ({
     position: 'absolute',
     top: theme.spacing.unit,
     left: '50%',
+    width: `calc(100% - ${theme.spacing.unit * 4}px)`,
     transform: 'translate(-50%)',
     zIndex: theme.zIndex.tooltip,
   },
@@ -197,7 +198,10 @@ class ProductListItem extends Component {
                         className={classes.quantityModifier}
                       >
                         <div>
-                          <QuantityModifier product={product} />
+                          <QuantityModifier
+                            product={product}
+                            showPrice={false}
+                          />
                         </div>
                       </Grow>
                     </div>
