@@ -85,7 +85,7 @@ class MenuView extends Component {
           ) : (
             categories.map(category => {
               const categoryProducts = products.filter(
-                product => product.category === category.id
+                product => product.categoryId === category._id
               );
 
               return (
