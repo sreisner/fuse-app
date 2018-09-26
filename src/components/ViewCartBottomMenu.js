@@ -18,6 +18,7 @@ const styles = theme => ({
     height: 60,
     padding: 12,
     background: theme.palette.secondary.main,
+    zIndex: theme.zIndex.appBar,
     boxShadow:
       // theme.shadows[4] inverted
       '0px -2px 4px -1px rgba(0, 0, 0, 0.2),0px -4px 5px 0px rgba(0, 0, 0, 0.14),0px -1px 10px 0px rgba(0, 0, 0, 0.12)',
@@ -43,7 +44,7 @@ let ViewCartBottomMenu = props => (
         in={cart.length > 0}
         className={props.classes.slide}
       >
-        <div className={props.classes.menu} onClick={openCartDialog}>
+        <div onClick={openCartDialog}>
           <Typography
             variant="button"
             className={classNames(

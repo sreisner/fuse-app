@@ -59,7 +59,7 @@ const styles = theme => ({
     left: '50%',
     width: `calc(100% - ${theme.spacing.unit * 4}px)`,
     transform: 'translate(-50%)',
-    zIndex: theme.zIndex.tooltip,
+    zIndex: theme.zIndex.mobileStepper,
   },
   quantityModifier: {
     boxShadow: theme.shadows[8],
