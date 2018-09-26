@@ -6,12 +6,14 @@ import {
   Fade,
   IconButton,
   withWidth,
+  Grow,
 } from '@material-ui/core';
 import ProductDetailDialog from './ProductDetailDialog';
 import AddIcon from '@material-ui/icons/AddCircleOutlineRounded';
 import { ShoppingCartConsumer } from './ShoppingCartContext';
 import grey from '@material-ui/core/colors/grey';
 import classNames from 'classnames';
+import QuantityModifier from './QuantityModifier';
 
 const styles = theme => ({
   productListItem: {
@@ -22,11 +24,15 @@ const styles = theme => ({
     width: '20rem',
     minWidth: 200,
     cursor: 'pointer',
-    transition: `${theme.transitions.duration.shortest}ms ${
-      theme.transitions.easing.sharp
-    } box-shadow`,
-    '&:hover': {
-      boxShadow: theme.shadows[8],
+  },
+  [theme.breakpoints.up('sm')]: {
+    productListItem: {
+      transition: `${theme.transitions.duration.shortest}ms ${
+        theme.transitions.easing.sharp
+      } box-shadow`,
+      '&:hover': {
+        boxShadow: theme.shadows[8],
+      },
     },
   },
   upperRight: {
@@ -47,7 +53,18 @@ const styles = theme => ({
     background: theme.palette.secondary.main,
     borderRadius: '50%',
   },
-  quantityModifier: {},
+  quantityModifierContainer: {
+    position: 'absolute',
+    top: theme.spacing.unit,
+    left: '50%',
+    transform: 'translate(-50%)',
+    zIndex: theme.zIndex.tooltip,
+  },
+  quantityModifier: {
+    boxShadow: theme.shadows[8],
+    background: 'white',
+    borderRadius: theme.spacing.unit * 4,
+  },
   img: {
     alignSelf: 'center',
     width: '100%',
@@ -65,11 +82,10 @@ class ProductListItem extends Component {
   constructor(props) {
     super(props);
 
-    this.element = React.createRef();
-
     this.state = {
       detailDialogOpen: false,
       hovered: false,
+      productCountFocused: false,
     };
   }
 
@@ -103,9 +119,46 @@ class ProductListItem extends Component {
     addToCart(this.props.product);
   };
 
+  onProductCountClicked = event => {
+    event.stopPropagation();
+
+    this.setState({
+      productCountFocused: true,
+    });
+  };
+
+  handleClickOutside = event => {
+    if (
+      this.productCountRef &&
+      this.quantityModifierRef &&
+      !this.productCountRef.contains(event.target) &&
+      !this.quantityModifierRef.contains(event.target)
+    ) {
+      this.setState({
+        productCountFocused: false,
+      });
+    }
+  };
+
+  componentDidMount() {
+    document.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
+  }
+
+  setProductCountRef = node => {
+    this.productCountRef = node;
+  };
+
+  setQuantityModifierRef = node => {
+    this.quantityModifierRef = node;
+  };
+
   render() {
     const { classes, width, product } = this.props;
-    const { detailDialogOpen, hovered } = this.state;
+    const { detailDialogOpen, hovered, productCountFocused } = this.state;
 
     const onMobile = width === 'xs';
 
@@ -119,40 +172,67 @@ class ProductListItem extends Component {
         >
           <ShoppingCartConsumer>
             {({ addToCart, productInCart, getProductCount }) => {
+              const showAddButton =
+                ((hovered && !onMobile) || onMobile) && !productInCart(product);
+
+              const showQuantityModifier =
+                ((!onMobile && hovered) || (onMobile && productCountFocused)) &&
+                productInCart(product);
+
+              const showProductCount =
+                (onMobile || !hovered) &&
+                productInCart(product) &&
+                !showQuantityModifier;
+
               return (
                 <React.Fragment>
-                  {/* <Grow
-                    in={hovered && productInCart(product)}
-                    unmountOnExit={true}
-                    className={classes.quantityModifier}
-                  >
-                    <QuantityModifier />
-                  </Grow> */}
+                  {productInCart(product) && (
+                    <div
+                      ref={this.setQuantityModifierRef}
+                      className={classes.quantityModifierContainer}
+                    >
+                      <Grow
+                        in={showQuantityModifier}
+                        unmountOnExit={true}
+                        className={classes.quantityModifier}
+                      >
+                        <div>
+                          <QuantityModifier product={product} />
+                        </div>
+                      </Grow>
+                    </div>
+                  )}
+                  <div ref={this.setProductCountRef}>
+                    <Fade
+                      in={showProductCount}
+                      unmountOnExit={true}
+                      className={classNames(
+                        classes.upperRight,
+                        classes.productCount
+                      )}
+                    >
+                      <Typography
+                        variant="body2"
+                        color="inherit"
+                        onClick={this.onProductCountClicked}
+                      >
+                        <b>{getProductCount(product)}</b>
+                      </Typography>
+                    </Fade>
+                  </div>
                   <Fade
-                    in={(onMobile || !hovered) && productInCart(product)}
-                    className={classNames(
-                      classes.upperRight,
-                      classes.productCount
-                    )}
-                  >
-                    <Typography variant="body2" color="inherit">
-                      <b>{getProductCount(product)}</b>
-                    </Typography>
-                  </Fade>
-                  <Fade
-                    in={(onMobile || hovered) && !productInCart(product)}
+                    in={showAddButton}
                     unmountOnExit={true}
                     className={classes.upperRight}
+                    onClick={event => this.onAddClick(event, addToCart)}
                   >
-                    <div onClick={event => this.onAddClick(event, addToCart)}>
-                      <IconButton>
-                        <AddIcon
-                          fontSize="small"
-                          color="secondary"
-                          className={classes.addIcon}
-                        />
-                      </IconButton>
-                    </div>
+                    <IconButton>
+                      <AddIcon
+                        fontSize="small"
+                        color="secondary"
+                        className={classes.addIcon}
+                      />
+                    </IconButton>
                   </Fade>
                   <img
                     className={classes.img}

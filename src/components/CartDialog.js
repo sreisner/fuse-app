@@ -11,12 +11,10 @@ import {
   Divider,
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/CloseRounded';
-import DeleteIcon from '@material-ui/icons/DeleteOutlineRounded';
-import AddIcon from '@material-ui/icons/AddCircleOutlineRounded';
-import RemoveIcon from '@material-ui/icons/RemoveCircleOutlineRounded';
 import { ShoppingCartConsumer } from './ShoppingCartContext';
 import { getFormattedPrice } from '../utils';
 import classNames from 'classnames';
+import QuantityModifier from './QuantityModifier';
 
 const styles = theme => ({
   row: {
@@ -49,16 +47,7 @@ let CartDialog = props => {
 
   return (
     <ShoppingCartConsumer>
-      {({
-        cart,
-        cartDialogIsOpen,
-        closeCartDialog,
-        removeProductFromCart,
-        decrementProductCount,
-        incrementProductCount,
-        getProductSubtotal,
-        getCartSubtotal,
-      }) => (
+      {({ cart, cartDialogIsOpen, closeCartDialog, getCartSubtotal }) => (
         <Dialog
           fullScreen={fullScreen}
           open={cartDialogIsOpen}
@@ -84,39 +73,7 @@ let CartDialog = props => {
                 >
                   {cartProduct.product.title}
                 </Typography>
-                <div
-                  className={classNames(classes.row, classes.quantityModifier)}
-                >
-                  {cartProduct.numItemsInCart === 1 && (
-                    <IconButton
-                      onClick={() => removeProductFromCart(cartProduct.product)}
-                    >
-                      <DeleteIcon color="error" fontSize="large" />
-                    </IconButton>
-                  )}
-                  {cartProduct.numItemsInCart > 1 && (
-                    <IconButton
-                      onClick={() => decrementProductCount(cartProduct.product)}
-                    >
-                      <RemoveIcon color="primary" fontSize="large" />
-                    </IconButton>
-                  )}
-                  <div className={classes.productSubtotalContainer}>
-                    <Typography variant="title">
-                      {getFormattedPrice(
-                        getProductSubtotal(cartProduct.product)
-                      )}
-                    </Typography>
-                    <Typography variant="body1">
-                      Qty: {cartProduct.numItemsInCart}
-                    </Typography>
-                  </div>
-                  <IconButton
-                    onClick={() => incrementProductCount(cartProduct.product)}
-                  >
-                    <AddIcon color="primary" fontSize="large" />
-                  </IconButton>
-                </div>
+                <QuantityModifier product={cartProduct.product} />
               </div>
             ))}
             <Divider className={classes.divider} />
